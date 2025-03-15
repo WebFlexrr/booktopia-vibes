@@ -5,7 +5,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { Button } from '../components/ui/button';
 import { Separator } from '../components/ui/separator';
-import { BookCard } from '../components/ui/BookCard';
+import BookCard from '../components/ui/BookCard';
 import { BookOpen, Building, MapPin, Phone, Mail, Globe } from 'lucide-react';
 
 // Mock publisher data
