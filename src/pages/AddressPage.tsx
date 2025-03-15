@@ -21,7 +21,7 @@ const initialAddresses = [
     zipCode: '12345',
     phone: '(555) 123-4567',
     isDefault: true,
-    type: 'home',
+    type: 'home' as const,
   },
   {
     id: '2',
@@ -32,7 +32,7 @@ const initialAddresses = [
     zipCode: '67890',
     phone: '(555) 987-6543',
     isDefault: false,
-    type: 'work',
+    type: 'work' as const,
   },
 ];
 
