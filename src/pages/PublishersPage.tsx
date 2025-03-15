@@ -200,7 +200,16 @@ const PublishersPage = () => {
             
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
               {publisher.books.map((book) => (
-                <BookCard key={book.id} book={book} />
+                <BookCard 
+                  key={book.id}
+                  id={book.id}
+                  title={book.title}
+                  author={book.author}
+                  cover={book.coverImage}
+                  price={book.price}
+                  originalPrice={book.discount ? (book.price * 100) / (100 - book.discount) : undefined}
+                  rating={book.rating}
+                />
               ))}
             </div>
           </div>
