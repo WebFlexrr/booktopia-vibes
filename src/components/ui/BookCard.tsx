@@ -1,7 +1,9 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Star, Heart, ShoppingCart } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
 
 interface BookCardProps {
   id: string;
@@ -26,11 +28,44 @@ const BookCard: React.FC<BookCardProps> = ({
   isNew = false,
   isBestseller = false,
 }) => {
+  const navigate = useNavigate();
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toast({
+      title: "Added to cart",
+      description: `${title} has been added to your cart.`,
+    });
+  };
+
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Add to cart first
+    toast({
+      title: "Proceeding to checkout",
+      description: `${title} has been added to your cart.`,
+    });
+    // Navigate to checkout
+    setTimeout(() => navigate('/checkout'), 500);
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsWishlisted(!isWishlisted);
+    toast({
+      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist",
+      description: `${title} has been ${isWishlisted ? "removed from" : "added to"} your wishlist.`,
+    });
+  };
+
   return (
-    <Link to={`/book/${id}`} className="book-card group animate-fade-in hover-scale">
-      <div className="relative aspect-[2/3] overflow-hidden">
+    <Link to={`/book/${id}`} className="book-card group animate-fade-in hover-scale block">
+      <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg">
         <img
           src={cover}
           alt={`Cover of ${title} by ${author}`}
@@ -57,9 +92,19 @@ const BookCard: React.FC<BookCardProps> = ({
             )}
           </div>
         )}
+
+        {/* Wishlist button */}
+        <button 
+          onClick={handleWishlist}
+          className={`absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm
+                     transition-colors hover:bg-white ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+        >
+          <Heart size={18} className={isWishlisted ? 'fill-red-500' : ''} />
+        </button>
       </div>
       
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-4 flex flex-col flex-grow bg-card rounded-b-lg border border-t-0 border-border">
         <h3 className="font-medium line-clamp-2 mb-1 group-hover:text-primary transition-colors">
           {title}
         </h3>
@@ -84,7 +129,7 @@ const BookCard: React.FC<BookCardProps> = ({
           </div>
         )}
         
-        <div className="mt-auto flex items-baseline">
+        <div className="mt-auto flex items-baseline mb-3">
           <span className="font-semibold">
             ${price.toFixed(2)}
           </span>
@@ -93,6 +138,25 @@ const BookCard: React.FC<BookCardProps> = ({
               ${originalPrice.toFixed(2)}
             </span>
           )}
+        </div>
+
+        {/* Action buttons */}
+        <div className="flex gap-2 mt-auto">
+          <Button 
+            size="sm" 
+            variant="outline" 
+            className="flex-1 flex items-center justify-center"
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart size={14} className="mr-1" /> Add
+          </Button>
+          <Button 
+            size="sm"
+            className="flex-1"
+            onClick={handleBuyNow}
+          >
+            Buy Now
+          </Button>
         </div>
       </div>
     </Link>

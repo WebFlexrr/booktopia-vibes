@@ -4,8 +4,11 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import BookCollection from '../components/home/BookCollection';
-import { Star, Heart, Share, ChevronDown, ShoppingCart, Bookmark, Check } from 'lucide-react';
+import { Star, Heart, Share, ChevronDown, ShoppingCart, Bookmark, Check, BookOpen, Calendar, BookText, Layers, Language } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Mock data for a single book
 const bookData = {
@@ -29,6 +32,25 @@ Somewhere out beyond the edge of the universe there is a library that contains a
   pages: 304,
   isbn: '9780525559474',
   language: 'English',
+  awards: ['Goodreads Choice Award for Fiction (2020)'],
+  format: 'Hardcover',
+  dimensions: '5.8 x 1.1 x 8.5 inches',
+  weight: '1.1 pounds',
+  ageRange: 'Adult',
+  reviews: [
+    {
+      user: 'John D.',
+      rating: 5,
+      date: 'January 15, 2022',
+      comment: 'An absolute masterpiece! The concept is brilliant and execution is flawless.'
+    },
+    {
+      user: 'Sarah M.',
+      rating: 4,
+      date: 'March 22, 2022',
+      comment: 'Beautifully written and thought-provoking. Highly recommend!'
+    }
+  ]
 };
 
 // Mock data for recommended books
@@ -212,36 +234,38 @@ const ProductPage = () => {
                 </div>
                 
                 <div className="flex flex-1 gap-3">
-                  <button 
+                  <Button 
                     onClick={handleAddToCart}
-                    className="flex-1 btn-secondary flex items-center justify-center gap-2"
+                    className="flex-1 flex items-center justify-center gap-2"
+                    variant="secondary"
                   >
                     <ShoppingCart size={18} />
                     Add to Cart
-                  </button>
+                  </Button>
                   
-                  <button 
+                  <Button 
                     onClick={handleBuyNow}
-                    className="flex-1 btn-primary flex items-center justify-center gap-2"
+                    className="flex-1 flex items-center justify-center gap-2"
                   >
                     Buy Now
-                  </button>
+                  </Button>
                 </div>
               </div>
               
               <div className="flex gap-4 mb-8">
-                <button 
+                <Button 
                   onClick={handleWishlist}
-                  className={`btn-outline flex items-center gap-2 ${isWishlisted ? 'text-red-500 border-red-500' : ''}`}
+                  variant="outline"
+                  className={`flex items-center gap-2 ${isWishlisted ? 'text-red-500 border-red-500' : ''}`}
                 >
                   <Heart size={18} className={isWishlisted ? 'fill-red-500' : ''} />
                   {isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}
-                </button>
+                </Button>
                 
-                <button className="btn-outline flex items-center gap-2">
+                <Button variant="outline" className="flex items-center gap-2">
                   <Share size={18} />
                   Share
-                </button>
+                </Button>
               </div>
               
               <div className="space-y-6">
@@ -263,33 +287,154 @@ const ProductPage = () => {
                     </button>
                   )}
                 </div>
-                
-                <div className="subtle-divider" />
-                
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 text-sm">
-                  <div>
-                    <p className="text-muted-foreground mb-1">Publisher</p>
-                    <p className="font-medium">{book.publisher}</p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground mb-1">Publication Date</p>
-                    <p className="font-medium">{book.publishDate}</p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground mb-1">Language</p>
-                    <p className="font-medium">{book.language}</p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground mb-1">Pages</p>
-                    <p className="font-medium">{book.pages}</p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground mb-1">ISBN</p>
-                    <p className="font-medium">{book.isbn}</p>
-                  </div>
-                </div>
               </div>
             </div>
+          </div>
+          
+          {/* Product description and metadata section */}
+          <div className="mt-16 mb-16 animate-slide-up" style={{ animationDelay: '200ms' }}>
+            <Tabs defaultValue="description" className="w-full">
+              <TabsList className="grid grid-cols-4 mb-8">
+                <TabsTrigger value="description">Description</TabsTrigger>
+                <TabsTrigger value="details">Product Details</TabsTrigger>
+                <TabsTrigger value="reviews">Reviews</TabsTrigger>
+                <TabsTrigger value="shipping">Shipping</TabsTrigger>
+              </TabsList>
+              <TabsContent value="description" className="p-4">
+                <h3 className="text-xl font-semibold mb-4">About the Book</h3>
+                <div className="prose prose-sm max-w-none text-muted-foreground">
+                  <p className="whitespace-pre-line">{book.description}</p>
+                  {book.awards && book.awards.length > 0 && (
+                    <div className="mt-6">
+                      <h4 className="text-lg font-medium mb-2">Awards</h4>
+                      <ul className="list-disc pl-5">
+                        {book.awards.map((award, index) => (
+                          <li key={index}>{award}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="details">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <Card>
+                    <CardContent className="p-6">
+                      <h4 className="text-lg font-medium mb-4 flex items-center">
+                        <BookText className="mr-2 text-primary" size={20} />
+                        Book Information
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Format</span>
+                          <span className="font-medium">{book.format || 'Paperback'}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Dimensions</span>
+                          <span className="font-medium">{book.dimensions || 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Weight</span>
+                          <span className="font-medium">{book.weight || 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Age Range</span>
+                          <span className="font-medium">{book.ageRange || 'All ages'}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">ISBN</span>
+                          <span className="font-medium">{book.isbn}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardContent className="p-6">
+                      <h4 className="text-lg font-medium mb-4 flex items-center">
+                        <Layers className="mr-2 text-primary" size={20} />
+                        Publishing Details
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Publisher</span>
+                          <span className="font-medium">{book.publisher}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Publication Date</span>
+                          <span className="font-medium">{book.publishDate}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Language</span>
+                          <span className="font-medium">{book.language}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Pages</span>
+                          <span className="font-medium">{book.pages}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-border pb-2">
+                          <span className="text-muted-foreground">Categories</span>
+                          <span className="font-medium">{book.categories.join(', ')}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="reviews">
+                <h3 className="text-xl font-semibold mb-4">Customer Reviews</h3>
+                <div className="space-y-6">
+                  {book.reviews && book.reviews.map((review, index) => (
+                    <div key={index} className="border-b border-border pb-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
+                            {review.user.charAt(0)}
+                          </div>
+                          <div className="ml-3">
+                            <p className="font-medium">{review.user}</p>
+                            <p className="text-sm text-muted-foreground">{review.date}</p>
+                          </div>
+                        </div>
+                        <div className="flex">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={16}
+                              className={i < review.rating ? 'text-amber-400 fill-amber-400' : 'text-muted-foreground'}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-muted-foreground">{review.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="shipping">
+                <h3 className="text-xl font-semibold mb-4">Shipping Information</h3>
+                <div className="space-y-6 text-muted-foreground">
+                  <div>
+                    <h4 className="font-medium text-foreground mb-2">Delivery</h4>
+                    <p>Orders are typically processed and shipped within 1-2 business days.</p>
+                    <ul className="list-disc pl-5 mt-2">
+                      <li>Standard Shipping: 3-7 business days</li>
+                      <li>Expedited Shipping: 2-3 business days</li>
+                      <li>Free shipping on orders over $50</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-medium text-foreground mb-2">Returns & Refunds</h4>
+                    <p>If you're not satisfied with your purchase, you can return it within 30 days for a full refund.</p>
+                    <p className="mt-2">Please note that books must be returned in their original condition with no visible damage.</p>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
           
           <div className="mt-20">

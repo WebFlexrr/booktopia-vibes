@@ -13,7 +13,7 @@ const bookLaunches = [
     title: 'The Best Books of 2023',
     subtitle: 'Limited Time Only. While Supplies Last!',
     description: 'Discover award-winning stories that captivated readers globally',
-    bgColor: 'bg-pink-100',
+    bgColor: 'bg-gradient-to-r from-pink-100 to-rose-100',
     image: 'https://images.unsplash.com/photo-1535398089889-dd807df1dfaa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
     decoration: 'public/lovable-uploads/7fbd2492-cfcd-4323-a813-52001a4920b6.png',
     ctaText: 'Shop Now',
@@ -24,7 +24,7 @@ const bookLaunches = [
     title: 'Summer Reading Collection',
     subtitle: 'Perfect Beach Companions',
     description: 'Escape with our hand-picked selection of summer reads',
-    bgColor: 'bg-blue-100',
+    bgColor: 'bg-gradient-to-r from-blue-50 to-sky-100',
     image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80',
     decoration: null,
     ctaText: 'Explore Collection',
@@ -35,7 +35,7 @@ const bookLaunches = [
     title: 'New Mystery Thrillers',
     subtitle: 'The Most Anticipated Releases',
     description: 'Edge-of-your-seat page turners from top authors',
-    bgColor: 'bg-purple-100',
+    bgColor: 'bg-gradient-to-r from-purple-50 to-indigo-100',
     image: 'https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1355&q=80',
     decoration: null,
     ctaText: 'Shop Thrillers',
@@ -46,10 +46,12 @@ const bookLaunches = [
 const Hero = () => {
   const navigate = useNavigate();
   const [autoplay, setAutoplay] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     // Set up autoplay for carousel
     const interval = autoplay ? setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % bookLaunches.length);
       const nextBtn = document.querySelector('.carousel-next') as HTMLButtonElement;
       if (nextBtn) nextBtn.click();
     }, 5000) : null;
@@ -60,7 +62,7 @@ const Hero = () => {
   }, [autoplay]);
 
   return (
-    <section className="relative">
+    <section className="relative overflow-hidden">
       <Carousel 
         className="w-full" 
         onMouseEnter={() => setAutoplay(false)}
@@ -72,7 +74,7 @@ const Hero = () => {
               <div className={`relative ${book.bgColor} min-h-[85vh] sm:min-h-[80vh] flex items-center overflow-hidden`}>
                 {/* Background decoration elements */}
                 <div className="absolute inset-0 overflow-hidden">
-                  {book.id === '1' && (
+                  {book.id === '1' && book.decoration && (
                     <>
                       <img 
                         src={book.decoration}
@@ -92,6 +94,10 @@ const Hero = () => {
                       </div>
                     </>
                   )}
+                  
+                  {/* Add abstract shapes for all slides */}
+                  <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+                  <div className="absolute top-1/4 -right-12 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
                 </div>
                 
                 <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-8 py-12 relative z-10">
@@ -137,10 +143,38 @@ const Hero = () => {
         <CarouselNext className="right-4 carousel-next" />
       </Carousel>
 
+      {/* Carousel indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {bookLaunches.map((_, index) => (
+          <button
+            key={index}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              currentSlide === index ? 'bg-primary w-6' : 'bg-gray-400'
+            }`}
+            onClick={() => {
+              setCurrentSlide(index);
+              // Find the right button to click
+              if (index > currentSlide) {
+                const nextBtn = document.querySelector('.carousel-next') as HTMLButtonElement;
+                for (let i = 0; i < index - currentSlide; i++) {
+                  setTimeout(() => nextBtn?.click(), i * 100);
+                }
+              } else if (index < currentSlide) {
+                const prevBtn = document.querySelector('.carousel-prev') as HTMLButtonElement;
+                for (let i = 0; i < currentSlide - index; i++) {
+                  setTimeout(() => prevBtn?.click(), i * 100);
+                }
+              }
+            }}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
       {/* Benefits section */}
       <div className="container-custom py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-slide-up">
-          <div className="flex items-center p-4 rounded-lg">
+          <div className="flex items-center p-4 rounded-lg hover:bg-secondary/30 transition-colors">
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-500 mr-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -152,7 +186,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="flex items-center p-4 rounded-lg">
+          <div className="flex items-center p-4 rounded-lg hover:bg-secondary/30 transition-colors">
             <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-500 mr-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
@@ -164,7 +198,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="flex items-center p-4 rounded-lg">
+          <div className="flex items-center p-4 rounded-lg hover:bg-secondary/30 transition-colors">
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 mr-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -176,7 +210,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="flex items-center p-4 rounded-lg">
+          <div className="flex items-center p-4 rounded-lg hover:bg-secondary/30 transition-colors">
             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-500 mr-3">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
