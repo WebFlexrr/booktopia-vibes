@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingCart, User, Search } from 'lucide-react';
+import { Menu, X, ShoppingCart, User, Search, Heart } from 'lucide-react';
 import SearchBar from '../ui/SearchBar';
 
 const Navbar = () => {
@@ -60,6 +60,14 @@ const Navbar = () => {
           </button>
           
           <Link 
+            to="/wishlist" 
+            className="p-2 rounded-full hover:bg-secondary/80 transition-colors"
+            aria-label="Wishlist"
+          >
+            <Heart size={20} />
+          </Link>
+          
+          <Link 
             to="/cart" 
             className="p-2 rounded-full hover:bg-secondary/80 transition-colors"
             aria-label="Cart"
@@ -100,6 +108,9 @@ const Navbar = () => {
             </Link>
             <Link to="/authors" className="block py-2" onClick={() => setIsMobileMenuOpen(false)}>
               Authors
+            </Link>
+            <Link to="/wishlist" className="block py-2" onClick={() => setIsMobileMenuOpen(false)}>
+              Wishlist
             </Link>
           </div>
         </div>

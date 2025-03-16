@@ -19,6 +19,7 @@ import AuthorsPage from "./pages/AuthorsPage";
 import PublishersPage from "./pages/PublishersPage";
 import SettingsPage from "./pages/SettingsPage";
 import PaymentMethodsPage from "./pages/PaymentMethodsPage";
+import WishlistPage from "./pages/WishlistPage";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/addresses" element={<AddressPage />} />
           <Route path="/account/orders" element={<OrdersPage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/authors/:id" element={<AuthorsPage />} />
           <Route path="/publishers/:id" element={<PublishersPage />} />
           <Route path="/settings" element={<SettingsPage />} />

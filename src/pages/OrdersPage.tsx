@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -7,6 +6,8 @@ import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Separator } from '../components/ui/separator';
 import { ShoppingBag, Package, Calendar, ChevronRight, FileText, Download } from 'lucide-react';
+import { toast } from '../hooks/use-toast';
+import { downloadInvoice } from '../components/order/InvoiceGenerator';
 
 // Mock order data
 const orders = [
@@ -98,6 +99,22 @@ const OrdersPage = () => {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
   };
 
+  const handleDownloadInvoice = (order: any) => {
+    try {
+      downloadInvoice(order);
+      toast({
+        title: "Invoice downloaded",
+        description: `Invoice for order ${order.id} has been downloaded.`,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Download failed",
+        description: "There was an error downloading your invoice.",
+      });
+    }
+  };
+
   return (
     <div className="page-transition min-h-screen flex flex-col">
       <Navbar />
@@ -166,11 +183,21 @@ const OrdersPage = () => {
                         <div className="flex items-center justify-between">
                           <h4 className="font-medium">Order Details</h4>
                           <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" className="text-xs h-8">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs h-8"
+                              onClick={() => handleDownloadInvoice(order)}
+                            >
                               <FileText size={14} className="mr-1.5" />
                               View Invoice
                             </Button>
-                            <Button variant="outline" size="sm" className="text-xs h-8">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs h-8"
+                              onClick={() => handleDownloadInvoice(order)}
+                            >
                               <Download size={14} className="mr-1.5" />
                               Download
                             </Button>
