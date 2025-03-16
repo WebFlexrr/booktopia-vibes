@@ -20,6 +20,9 @@ import PublishersPage from "./pages/PublishersPage";
 import SettingsPage from "./pages/SettingsPage";
 import PaymentMethodsPage from "./pages/PaymentMethodsPage";
 import WishlistPage from "./pages/WishlistPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsConditionsPage from "./pages/TermsConditionsPage";
+import RefundPolicyPage from "./pages/RefundPolicyPage";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +48,9 @@ const App = () => (
           <Route path="/publishers/:id" element={<PublishersPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/payment-methods" element={<PaymentMethodsPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-conditions" element={<TermsConditionsPage />} />
+          <Route path="/refund-policy" element={<RefundPolicyPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
