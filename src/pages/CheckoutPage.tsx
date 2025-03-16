@@ -6,7 +6,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
-import { CreditCard, MapPin, ShoppingBag, ChevronRight, Check, Smartphone, CashIcon } from 'lucide-react';
+import { CreditCard, MapPin, ShoppingBag, ChevronRight, Check, Smartphone, Banknote } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
 import PaymentSuccess from '../components/checkout/PaymentSuccess';
 
@@ -563,7 +563,7 @@ const CheckoutPage = () => {
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-6 bg-green-500/10 rounded flex items-center justify-center">
-                            <ShoppingBag size={18} className="text-green-600" />
+                            <Banknote size={18} className="text-green-600" />
                           </div>
                           <span className="font-medium">Cash on Delivery</span>
                         </div>
@@ -632,7 +632,7 @@ const CheckoutPage = () => {
                         )}
                         {paymentMethod === 'cod' && (
                           <div className="flex items-center gap-2">
-                            <ShoppingBag size={18} className="text-green-600" />
+                            <Banknote size={18} className="text-green-600" />
                             <span>Cash on Delivery</span>
                           </div>
                         )}
