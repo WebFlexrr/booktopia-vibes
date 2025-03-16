@@ -5,9 +5,9 @@ import Footer from '../components/layout/Footer';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Separator } from '../components/ui/separator';
-import { ShoppingBag, Package, Calendar, ChevronRight, FileText, Download } from 'lucide-react';
+import { ShoppingBag, Package, Calendar, ChevronRight, FileText } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
-import { downloadInvoice } from '../components/order/InvoiceGenerator';
+import ReactPDFInvoice from '../components/order/ReactPDFInvoice';
 
 // Mock order data
 const orders = [
@@ -99,22 +99,6 @@ const OrdersPage = () => {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
   };
 
-  const handleDownloadInvoice = (order: any) => {
-    try {
-      downloadInvoice(order);
-      toast({
-        title: "Invoice downloaded",
-        description: `Invoice for order ${order.id} has been downloaded.`,
-      });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Download failed",
-        description: "There was an error downloading your invoice.",
-      });
-    }
-  };
-
   return (
     <div className="page-transition min-h-screen flex flex-col">
       <Navbar />
@@ -187,20 +171,14 @@ const OrdersPage = () => {
                               variant="outline" 
                               size="sm" 
                               className="text-xs h-8"
-                              onClick={() => handleDownloadInvoice(order)}
+                              asChild
                             >
-                              <FileText size={14} className="mr-1.5" />
-                              View Invoice
+                              <Link to="#" onClick={(e) => e.preventDefault()}>
+                                <FileText size={14} className="mr-1.5" />
+                                View Details
+                              </Link>
                             </Button>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              className="text-xs h-8"
-                              onClick={() => handleDownloadInvoice(order)}
-                            >
-                              <Download size={14} className="mr-1.5" />
-                              Download
-                            </Button>
+                            <ReactPDFInvoice order={order} />
                           </div>
                         </div>
 
