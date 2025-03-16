@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
@@ -7,8 +6,9 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
-import { CreditCard, MapPin, ShoppingBag, ChevronRight, Check } from 'lucide-react';
+import { CreditCard, MapPin, ShoppingBag, ChevronRight, Check, Smartphone, CashIcon } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
+import PaymentSuccess from '../components/checkout/PaymentSuccess';
 
 // Mock saved addresses
 const savedAddresses = [
@@ -66,12 +66,23 @@ const steps: CheckoutStep[] = [
   { id: 'review', title: 'Review Order', icon: ShoppingBag },
 ];
 
+// UPI apps
+const upiApps = [
+  { id: 'gpay', name: 'Google Pay', icon: '/lovable-uploads/a669888e-37c0-4b40-86af-db84f8a9fedc.png', color: 'bg-blue-50' },
+  { id: 'phonepe', name: 'PhonePe', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/PhonePe_Logo.png/800px-PhonePe_Logo.png', color: 'bg-purple-50' },
+  { id: 'paytm', name: 'Paytm', icon: 'https://cdn.iconscout.com/icon/free/png-256/free-paytm-226448.png', color: 'bg-blue-50' },
+  { id: 'bhim', name: 'BHIM UPI', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/BHIM_logo.svg/2048px-BHIM_logo.svg.png', color: 'bg-blue-50' },
+];
+
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<string>('address');
   const [selectedAddress, setSelectedAddress] = useState<string>(savedAddresses[0].id);
   const [addingNewAddress, setAddingNewAddress] = useState<boolean>(false);
   const [paymentMethod, setPaymentMethod] = useState<string>('card');
+  const [selectedUpiApp, setSelectedUpiApp] = useState<string>('');
+  const [isProcessingPayment, setIsProcessingPayment] = useState<boolean>(false);
+  const [paymentSuccess, setPaymentSuccess] = useState<boolean>(false);
   
   // Form states
   const [newAddress, setNewAddress] = useState({
@@ -107,6 +118,22 @@ const CheckoutPage = () => {
     setSelectedAddress('new'); // Pretend we have an ID for the new address
   };
   
+  // Process payment and show success
+  const processPayment = () => {
+    setIsProcessingPayment(true);
+    
+    // Simulate payment processing
+    setTimeout(() => {
+      setIsProcessingPayment(false);
+      setPaymentSuccess(true);
+      
+      // After showing success for a moment, redirect
+      setTimeout(() => {
+        navigate('/account/orders');
+      }, 3000);
+    }, 2000);
+  };
+  
   // Navigate between steps
   const nextStep = () => {
     if (activeStep === 'address') {
@@ -115,14 +142,7 @@ const CheckoutPage = () => {
       setActiveStep('review');
     } else if (activeStep === 'review') {
       // Place order logic
-      toast({
-        title: "Order placed!",
-        description: "Your order has been placed successfully. Thank you for shopping with us!",
-      });
-      // Redirect to order confirmation or home page
-      setTimeout(() => {
-        navigate('/account/orders');
-      }, 2000);
+      processPayment();
     }
   };
   
@@ -138,9 +158,18 @@ const CheckoutPage = () => {
   const canProceed = () => {
     if (activeStep === 'address') {
       return selectedAddress !== '' || (addingNewAddress && Object.values(newAddress).every(val => val !== ''));
+    } else if (activeStep === 'payment') {
+      if (paymentMethod === 'upi') {
+        return selectedUpiApp !== '';
+      }
+      return true;
     }
     return true;
   };
+  
+  if (paymentSuccess) {
+    return <PaymentSuccess />;
+  }
   
   return (
     <div className="page-transition min-h-screen flex flex-col">
@@ -345,13 +374,17 @@ const CheckoutPage = () => {
                   <h2 className="text-xl font-medium mb-6">Payment Method</h2>
                   
                   <div className="space-y-4">
+                    {/* Credit/Debit Card Option */}
                     <div 
                       className={`border rounded-lg p-4 cursor-pointer transition-all ${
                         paymentMethod === 'card' 
                           ? 'border-primary bg-primary/5' 
                           : 'border-border hover:border-primary'
                       }`}
-                      onClick={() => setPaymentMethod('card')}
+                      onClick={() => {
+                        setPaymentMethod('card');
+                        setSelectedUpiApp('');
+                      }}
                     >
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3">
@@ -413,13 +446,91 @@ const CheckoutPage = () => {
                       )}
                     </div>
                     
+                    {/* UPI Payment Option */}
+                    <div 
+                      className={`border rounded-lg p-4 cursor-pointer transition-all ${
+                        paymentMethod === 'upi' 
+                          ? 'border-primary bg-primary/5' 
+                          : 'border-border hover:border-primary'
+                      }`}
+                      onClick={() => setPaymentMethod('upi')}
+                    >
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-6 bg-green-500/10 rounded flex items-center justify-center">
+                            <Smartphone size={18} className="text-green-600" />
+                          </div>
+                          <span className="font-medium">UPI Payment</span>
+                        </div>
+                        
+                        <div className="w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center border-input">
+                          {paymentMethod === 'upi' && (
+                            <div className="w-3 h-3 rounded-full bg-primary" />
+                          )}
+                        </div>
+                      </div>
+                      
+                      {paymentMethod === 'upi' && (
+                        <div className="mt-4 pt-4 border-t border-border">
+                          <Label className="mb-3 block">Select UPI App</Label>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            {upiApps.map(app => (
+                              <div 
+                                key={app.id}
+                                className={`flex flex-col items-center p-4 rounded-lg cursor-pointer transition-all ${
+                                  selectedUpiApp === app.id 
+                                    ? 'bg-primary/10 border-2 border-primary' 
+                                    : app.color + ' border-2 border-transparent'
+                                }`}
+                                onClick={() => setSelectedUpiApp(app.id)}
+                              >
+                                <div className="w-12 h-12 mb-2 relative">
+                                  <img 
+                                    src={app.icon} 
+                                    alt={app.name}
+                                    className="w-full h-full object-contain" 
+                                  />
+                                  {selectedUpiApp === app.id && (
+                                    <div className="absolute -top-2 -right-2 bg-primary rounded-full w-5 h-5 flex items-center justify-center">
+                                      <Check size={12} className="text-white" />
+                                    </div>
+                                  )}
+                                </div>
+                                <span className="text-sm font-medium">{app.name}</span>
+                              </div>
+                            ))}
+                          </div>
+                          
+                          {selectedUpiApp && (
+                            <div className="mt-4 pt-4 border-t border-border">
+                              <div className="space-y-2">
+                                <Label htmlFor="upiId">UPI ID</Label>
+                                <Input 
+                                  id="upiId" 
+                                  placeholder="username@bankname" 
+                                  required 
+                                />
+                                <p className="text-xs text-muted-foreground">
+                                  Enter your UPI ID in the format: username@bankname
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* PayPal Option */}
                     <div 
                       className={`border rounded-lg p-4 cursor-pointer transition-all ${
                         paymentMethod === 'paypal' 
                           ? 'border-primary bg-primary/5' 
                           : 'border-border hover:border-primary'
                       }`}
-                      onClick={() => setPaymentMethod('paypal')}
+                      onClick={() => {
+                        setPaymentMethod('paypal');
+                        setSelectedUpiApp('');
+                      }}
                     >
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3">
@@ -437,13 +548,17 @@ const CheckoutPage = () => {
                       </div>
                     </div>
                     
+                    {/* Cash on Delivery Option */}
                     <div 
                       className={`border rounded-lg p-4 cursor-pointer transition-all ${
                         paymentMethod === 'cod' 
                           ? 'border-primary bg-primary/5' 
                           : 'border-border hover:border-primary'
                       }`}
-                      onClick={() => setPaymentMethod('cod')}
+                      onClick={() => {
+                        setPaymentMethod('cod');
+                        setSelectedUpiApp('');
+                      }}
                     >
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3">
@@ -555,6 +670,19 @@ const CheckoutPage = () => {
                 </div>
               )}
               
+              {/* Payment Processing Overlay */}
+              {isProcessingPayment && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+                  <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
+                    <div className="flex flex-col items-center">
+                      <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+                      <h2 className="text-xl font-semibold mb-2">Processing Payment</h2>
+                      <p className="text-muted-foreground">Please wait while we process your payment...</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               {/* Navigation Buttons */}
               <div className="mt-8 flex justify-between">
                 {activeStep !== 'address' && (
@@ -562,6 +690,7 @@ const CheckoutPage = () => {
                     variant="outline"
                     onClick={prevStep}
                     className="flex items-center gap-2"
+                    disabled={isProcessingPayment}
                   >
                     <ChevronRight className="rotate-180 h-4 w-4" />
                     Back
@@ -574,7 +703,7 @@ const CheckoutPage = () => {
                 
                 <Button
                   onClick={nextStep}
-                  disabled={!canProceed()}
+                  disabled={!canProceed() || isProcessingPayment}
                   className="flex items-center gap-2"
                 >
                   {activeStep === 'review' ? 'Place Order' : 'Continue'}

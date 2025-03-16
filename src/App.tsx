@@ -17,6 +17,8 @@ import AddressPage from "./pages/AddressPage";
 import OrdersPage from "./pages/OrdersPage";
 import AuthorsPage from "./pages/AuthorsPage";
 import PublishersPage from "./pages/PublishersPage";
+import SettingsPage from "./pages/SettingsPage";
+import PaymentMethodsPage from "./pages/PaymentMethodsPage";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/account/orders" element={<OrdersPage />} />
           <Route path="/authors/:id" element={<AuthorsPage />} />
           <Route path="/publishers/:id" element={<PublishersPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/payment-methods" element={<PaymentMethodsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

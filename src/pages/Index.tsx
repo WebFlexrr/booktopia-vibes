@@ -5,6 +5,7 @@ import Footer from '../components/layout/Footer';
 import Hero from '../components/home/Hero';
 import TrendingBooks from '../components/home/TrendingBooks';
 import BookCollection from '../components/home/BookCollection';
+import GenreSection from '../components/home/GenreSection';
 
 // Mock data
 const newReleases = [
@@ -163,6 +164,8 @@ const Index = () => {
           books={newReleases}
           link={{ text: "View all new releases", url: "/new-releases" }}
         />
+
+        <GenreSection />
 
         <TrendingBooks />
 
