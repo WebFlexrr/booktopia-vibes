@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import BookCollection from '../components/home/BookCollection';
-import { Star, Heart, Share, ChevronDown, ShoppingCart, Bookmark, Check, BookOpen, Calendar, BookText, Layers, Language } from 'lucide-react';
+import { Star, Heart, Share, ChevronDown, ShoppingCart, Bookmark, Check, BookOpen, Calendar, BookText, Layers, Languages } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
