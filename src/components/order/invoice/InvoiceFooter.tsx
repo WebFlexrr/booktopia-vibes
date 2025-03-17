@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: '#666666',
     textAlign: 'center',
+    fontFamily: 'Helvetica',
   },
 });
 

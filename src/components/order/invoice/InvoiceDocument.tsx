@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Document, Page, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, StyleSheet } from '@react-pdf/renderer';
 import { Order } from '@/types/order';
 import InvoiceHeader from './InvoiceHeader';
 import InvoiceInfo from './InvoiceInfo';
@@ -8,19 +8,13 @@ import InvoiceTable from './InvoiceTable';
 import InvoiceTotal from './InvoiceTotal';
 import InvoiceFooter from './InvoiceFooter';
 
-// Register font
-Font.register({
-  family: 'Inter',
-  src: 'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2',
-});
-
-// Create styles
+// Create styles - removing font registration which is causing the error
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
     padding: 40,
-    fontFamily: 'Inter',
+    fontFamily: 'Helvetica', // Using a built-in font instead of a web font
   },
 });
 

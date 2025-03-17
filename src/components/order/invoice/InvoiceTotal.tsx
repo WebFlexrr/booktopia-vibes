@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     width: '30%',
     marginBottom: 5,
     fontSize: 10,
+    fontFamily: 'Helvetica',
   },
   totalLabel: {
     textAlign: 'right',
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 12,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica-Bold',
   },
   separator: {
     borderBottomWidth: 1,

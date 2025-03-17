@@ -11,11 +11,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#333333',
+    fontFamily: 'Helvetica-Bold',
   },
   contactInfo: {
     fontSize: 10,
     color: '#666666',
     marginBottom: 5,
+    fontFamily: 'Helvetica',
   },
 });
 

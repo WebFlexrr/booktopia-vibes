@@ -15,17 +15,22 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginBottom: 3,
     color: '#333333',
+    fontFamily: 'Helvetica',
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#333333',
+    fontFamily: 'Helvetica-Bold',
   },
   separator: {
     borderBottomWidth: 1,
     borderBottomColor: '#EEEEEE',
     marginVertical: 15,
+  },
+  boldText: {
+    fontFamily: 'Helvetica-Bold',
   },
 });
 
@@ -48,7 +53,7 @@ const InvoiceInfo = ({ order }: InvoiceInfoProps) => (
       </View>
       
       <View style={styles.invoiceInfoContainer}>
-        <Text style={[styles.invoiceInfo, { fontWeight: 'bold' }]}>Bill To:</Text>
+        <Text style={[styles.invoiceInfo, styles.boldText]}>Bill To:</Text>
         <Text style={styles.invoiceInfo}>John Doe</Text>
         <Text style={styles.invoiceInfo}>customer@email.com</Text>
         <Text style={styles.invoiceInfo}>123 Customer Street</Text>

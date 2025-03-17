@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 10,
     color: '#333333',
+    fontFamily: 'Helvetica-Bold',
   },
   tableRow: {
     flexDirection: 'row',
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 10,
     color: '#333333',
+    fontFamily: 'Helvetica',
   },
   col1: { width: '40%' },
   col2: { width: '20%' },
