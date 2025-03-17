@@ -18,6 +18,9 @@ import OrdersPage from "./pages/OrdersPage";
 import TrackOrderPage from "./pages/TrackOrderPage";
 import AuthorsPage from "./pages/AuthorsPage";
 import PublishersPage from "./pages/PublishersPage";
+import PublishersListPage from "./pages/PublishersListPage";
+import BestSellersPage from "./pages/BestSellersPage";
+import NewReleasesPage from "./pages/NewReleasesPage";
 import SettingsPage from "./pages/SettingsPage";
 import PaymentMethodsPage from "./pages/PaymentMethodsPage";
 import WishlistPage from "./pages/WishlistPage";
@@ -47,8 +50,13 @@ const App = () => (
           <Route path="/account/orders" element={<OrdersPage />} />
           <Route path="/account/orders/track/:orderId" element={<TrackOrderPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          {/* New routes for the author, publisher, bestseller, and new releases pages */}
+          <Route path="/authors" element={<AuthorsPage />} />
           <Route path="/authors/:id" element={<AuthorsPage />} />
+          <Route path="/publishers" element={<PublishersListPage />} />
           <Route path="/publishers/:id" element={<PublishersPage />} />
+          <Route path="/bestsellers" element={<BestSellersPage />} />
+          <Route path="/new-releases" element={<NewReleasesPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/payment-methods" element={<PaymentMethodsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

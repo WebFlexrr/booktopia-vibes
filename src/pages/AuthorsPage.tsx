@@ -1,218 +1,109 @@
 
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
-import { Button } from '../components/ui/button';
-import { Separator } from '../components/ui/separator';
-import BookCard from '../components/ui/BookCard';
-import { BookOpen, Facebook, Twitter, Globe, Instagram } from 'lucide-react';
-
-// Mock author data
-const authorData = {
-  id: '1',
-  name: 'J.K. Rowling',
-  image: '/placeholder.svg',
-  bio: 'Joanne Rowling CH, OBE, HonFRSE, FRCPE, FRSL, better known by her pen name J. K. Rowling, is a British author and philanthropist. She wrote Harry Potter, a seven-volume fantasy series published from 1997 to 2007.',
-  birthdate: 'July 31, 1965',
-  birthplace: 'Yate, Gloucestershire, England',
-  website: 'https://www.jkrowling.com',
-  socialMedia: {
-    twitter: 'https://twitter.com/jk_rowling',
-    facebook: 'https://facebook.com/JKRowling',
-    instagram: 'https://instagram.com/jk_rowling',
-  },
-  books: [
-    {
-      id: '1',
-      title: "Harry Potter and the Philosopher's Stone",
-      author: 'J.K. Rowling',
-      price: 12.99,
-      coverImage: '/placeholder.svg',
-      rating: 4.8,
-      discount: 10,
-    },
-    {
-      id: '2',
-      title: 'Harry Potter and the Chamber of Secrets',
-      author: 'J.K. Rowling',
-      price: 14.99,
-      coverImage: '/placeholder.svg',
-      rating: 4.7,
-    },
-    {
-      id: '3',
-      title: 'Harry Potter and the Prisoner of Azkaban',
-      author: 'J.K. Rowling',
-      price: 14.99,
-      coverImage: '/placeholder.svg',
-      rating: 4.9,
-      discount: 15,
-    },
-    {
-      id: '4',
-      title: 'Harry Potter and the Goblet of Fire',
-      author: 'J.K. Rowling',
-      price: 16.99,
-      coverImage: '/placeholder.svg',
-      rating: 4.8,
-    },
-    {
-      id: '5',
-      title: 'Harry Potter and the Order of the Phoenix',
-      author: 'J.K. Rowling',
-      price: 18.99,
-      coverImage: '/placeholder.svg',
-      rating: 4.7,
-      discount: 5,
-    },
-    {
-      id: '6',
-      title: 'Harry Potter and the Half-Blood Prince',
-      author: 'J.K. Rowling',
-      price: 18.99,
-      coverImage: '/placeholder.svg',
-      rating: 4.8,
-    },
-  ],
-};
+import { authors } from '../db/authors';
+import { BookOpen, Search } from 'lucide-react';
+import { Card, CardContent } from '../components/ui/card';
+import { Input } from '@/components/ui/input';
 
 const AuthorsPage = () => {
-  const { id } = useParams();
-  // In a real app, you would fetch author data based on the ID
-  // const author = useAuthor(id);
-  const author = authorData; // Using mock data for now
-
-  if (!author) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow pt-24 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-3xl font-semibold mb-4">Author Not Found</h1>
-            <p className="text-muted-foreground mb-6">
-              The author you're looking for doesn't exist or has been removed.
-            </p>
-            <Button asChild>
-              <Link to="/">Back to Home</Link>
-            </Button>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  // Filter authors based on search term
+  const filteredAuthors = authors.filter(author => 
+    author.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    author.genre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="page-transition min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow pt-24">
         <div className="container-custom py-12">
-          <div className="mb-12">
-            <div className="flex flex-col md:flex-row gap-8 items-start animate-slide-up">
-              <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden bg-muted flex-shrink-0 mx-auto md:mx-0">
-                <img 
-                  src={author.image} 
-                  alt={author.name} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              
-              <div className="flex-grow text-center md:text-left">
-                <h1 className="text-3xl md:text-4xl font-semibold">{author.name}</h1>
-                
-                <div className="flex flex-wrap gap-2 mt-4 justify-center md:justify-start">
-                  <div className="flex items-center gap-1.5 text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">
-                    <BookOpen size={14} />
-                    <span>{author.books.length} Books</span>
-                  </div>
-                  
-                  {author.birthdate && (
-                    <div className="text-sm bg-muted px-3 py-1 rounded-full">
-                      Born: {author.birthdate}
-                    </div>
-                  )}
-                  
-                  {author.birthplace && (
-                    <div className="text-sm bg-muted px-3 py-1 rounded-full">
-                      {author.birthplace}
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex gap-3 mt-6 justify-center md:justify-start">
-                  {author.socialMedia?.twitter && (
-                    <a 
-                      href={author.socialMedia.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted h-10 w-10 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"
-                    >
-                      <Twitter size={18} />
-                    </a>
-                  )}
-                  
-                  {author.socialMedia?.facebook && (
-                    <a 
-                      href={author.socialMedia.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted h-10 w-10 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"
-                    >
-                      <Facebook size={18} />
-                    </a>
-                  )}
-                  
-                  {author.socialMedia?.instagram && (
-                    <a 
-                      href={author.socialMedia.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted h-10 w-10 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"
-                    >
-                      <Instagram size={18} />
-                    </a>
-                  )}
-                  
-                  {author.website && (
-                    <a 
-                      href={author.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted h-10 w-10 rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"
-                    >
-                      <Globe size={18} />
-                    </a>
-                  )}
-                </div>
-              </div>
+          {/* Hero Section */}
+          <div className="relative overflow-hidden rounded-2xl mb-16">
+            <div className="bg-gradient-to-r from-blue-600 to-teal-500 h-64 md:h-80">
+              <div className="h-full w-full bg-[url('https://images.unsplash.com/photo-1490633874781-1c63cc424610?q=80&w=1470&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
             </div>
-            
-            <div className="mt-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
-              <h2 className="text-xl font-medium mb-3">About the Author</h2>
-              <p className="text-muted-foreground whitespace-pre-line">
-                {author.bio}
-              </p>
+            <div className="absolute inset-0 flex items-center">
+              <div className="container-custom">
+                <div className="max-w-2xl">
+                  <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-md">
+                    Meet Our Authors
+                  </h1>
+                  <p className="text-lg md:text-xl text-white drop-shadow-md mb-6">
+                    Discover the creative minds behind your favorite books.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          
-          <Separator className="animate-slide-up" style={{ animationDelay: '150ms' }} />
-          
-          <div className="py-8 animate-slide-up" style={{ animationDelay: '200ms' }}>
-            <h2 className="text-2xl font-semibold mb-6">Books by {author.name}</h2>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-              {author.books.map((book) => (
-                <BookCard 
-                  key={book.id}
-                  id={book.id}
-                  title={book.title}
-                  author={book.author}
-                  cover={book.coverImage}
-                  price={book.price}
-                  originalPrice={book.discount ? (book.price * 100) / (100 - book.discount) : undefined}
-                  rating={book.rating}
-                />
+
+          {/* Search Bar */}
+          <div className="max-w-md mx-auto mb-12 animate-fade-in">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+              <Input
+                type="text"
+                placeholder="Search authors by name or genre..."
+                className="pl-10 py-6"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Authors Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 animate-fade-in" style={{ animationDelay: '100ms' }}>
+            {filteredAuthors.map((author, index) => (
+              <Link 
+                to={`/authors/${author.id}`} 
+                key={author.id}
+                className="group"
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                <Card className="overflow-hidden hover-scale transition-all duration-300 h-full hover:shadow-md">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={author.image} 
+                      alt={author.name} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{author.name}</h3>
+                    <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium mb-3">
+                      {author.genre}
+                    </span>
+                    <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
+                      {author.bio}
+                    </p>
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <BookOpen size={16} className="mr-1.5" />
+                      <span>{author.books} books</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+
+          {/* Genres Section */}
+          <div className="mt-20 animate-fade-in" style={{ animationDelay: '200ms' }}>
+            <h2 className="section-heading">Browse Authors by Genre</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {["Fantasy", "Mystery", "Sci-Fi", "Romance", "Horror", "Literary Fiction", "Historical Fiction", "Biography", "Classic Literature", "Magical Realism", "Young Adult", "Thriller"].map((genre, index) => (
+                <Card 
+                  key={genre} 
+                  className="hover:bg-primary/5 transition-colors cursor-pointer hover-scale"
+                  style={{ animationDelay: `${index * 30}ms` }}
+                >
+                  <CardContent className="p-4 text-center">
+                    <span className="text-sm font-medium">{genre}</span>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
