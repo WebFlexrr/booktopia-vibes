@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import BookCard from '../components/ui/BookCard';
-import { newReleases } from '../db/books';
+import { books,  } from '../db/books';
 import { ChevronRight } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 
@@ -19,10 +19,12 @@ const NewReleasesPage = () => {
   ];
 
   // Adding release dates to books for the demo
-  const booksWithDates = newReleases.map((book, index) => ({
+  const booksWithDates = books.map((book, index) => ({
     ...book,
     releaseDate: releaseDates[index % releaseDates.length]
   }));
+
+  const newReleases = books.filter(book=>book.isNew===true)
 
   return (
     <div className="min-h-screen flex flex-col">

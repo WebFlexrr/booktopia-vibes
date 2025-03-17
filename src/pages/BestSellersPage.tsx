@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import BookCard from '../components/ui/BookCard';
-import { bestsellers } from '../db/bestsellers';
+
 import { 
   Card, 
   CardContent, 
@@ -13,10 +13,12 @@ import {
   CardTitle 
 } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { books } from '@/db/books';
 
 const BestSellersPage = () => {
   // Create categories from bestsellers data
   const categories = ['All', 'Fiction', 'Non-Fiction', 'Mystery', 'Classic'];
+  const bestsellers = books.filter(book=>book.isBestseller===true)
 
   return (
     <div className="min-h-screen flex flex-col">

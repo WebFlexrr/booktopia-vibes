@@ -5,9 +5,7 @@ import Hero from "../components/home/Hero";
 import TrendingBooks from "../components/home/TrendingBooks";
 import BookCollection from "../components/home/BookCollection";
 import GenreSection from "../components/home/GenreSection";
-import { newReleases } from "@/db/books";
-import { bestsellers } from "@/db/bestsellers";
-import { deals } from "@/db/deals";
+import { books,  } from "@/db/books";
 
 const Index = () => {
   return (
@@ -18,7 +16,7 @@ const Index = () => {
 
         <BookCollection
           title="New Releases"
-          books={newReleases}
+          books={books}
           link={{ text: "View all new releases", url: "/new-releases" }}
         />
 
@@ -28,13 +26,13 @@ const Index = () => {
 
         <BookCollection
           title="Bestsellers"
-          books={bestsellers}
+          books={books}
           link={{ text: "View all bestsellers", url: "/bestsellers" }}
         />
 
         <BookCollection
           title="Special Deals"
-          books={deals}
+          books={books}
           link={{ text: "View all deals", url: "/deals" }}
         />
       </main>
