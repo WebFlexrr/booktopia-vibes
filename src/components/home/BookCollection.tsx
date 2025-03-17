@@ -26,6 +26,7 @@ interface BookCollectionProps {
 }
 
 const BookCollection: React.FC<BookCollectionProps> = ({ title, books, link }) => {
+  console.log("RENDER")
   return (
     <section className="py-16">
       <div className="container-custom">
