@@ -8,6 +8,7 @@ import { Separator } from '../components/ui/separator';
 import { ShoppingBag, Package, Calendar, ChevronRight, FileText } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
 import ReactPDFInvoice from '../components/order/ReactPDFInvoice';
+import { downloadInvoice } from '../components/order/InvoiceGenerator';
 
 // Mock order data
 const orders = [
@@ -99,6 +100,23 @@ const OrdersPage = () => {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
   };
 
+  const handleDownloadInvoice = async (order: any) => {
+    try {
+      await downloadInvoice(order);
+      toast({
+        title: "Success",
+        description: "Invoice has been downloaded successfully.",
+        variant: "default",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to download invoice. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="page-transition min-h-screen flex flex-col">
       <Navbar />
@@ -173,12 +191,20 @@ const OrdersPage = () => {
                               className="text-xs h-8"
                               asChild
                             >
-                              <Link to="#" onClick={(e) => e.preventDefault()}>
+                              <Link to={`/account/orders/track/${order.id}`}>
                                 <FileText size={14} className="mr-1.5" />
-                                View Details
+                                Track Order
                               </Link>
                             </Button>
-                            <ReactPDFInvoice order={order} />
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="text-xs h-8"
+                              onClick={() => handleDownloadInvoice(order)}
+                            >
+                              <FileText size={14} className="mr-1.5" />
+                              Download Invoice
+                            </Button>
                           </div>
                         </div>
 
@@ -227,9 +253,11 @@ const OrdersPage = () => {
                         </div>
 
                         <div className="flex justify-end mt-4">
-                          <Button>
-                            <Package size={16} className="mr-2" />
-                            Track Order
+                          <Button asChild>
+                            <Link to={`/account/orders/track/${order.id}`}>
+                              <Package size={16} className="mr-2" />
+                              Track Order
+                            </Link>
                           </Button>
                         </div>
                       </div>
