@@ -15,6 +15,7 @@ import SignupPage from "./pages/SignupPage";
 import AccountPage from "./pages/AccountPage";
 import AddressPage from "./pages/AddressPage";
 import OrdersPage from "./pages/OrdersPage";
+import TrackOrderPage from "./pages/TrackOrderPage";
 import AuthorsPage from "./pages/AuthorsPage";
 import PublishersPage from "./pages/PublishersPage";
 import SettingsPage from "./pages/SettingsPage";
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/addresses" element={<AddressPage />} />
           <Route path="/account/orders" element={<OrdersPage />} />
+          <Route path="/account/orders/track/:orderId" element={<TrackOrderPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/authors/:id" element={<AuthorsPage />} />
           <Route path="/publishers/:id" element={<PublishersPage />} />

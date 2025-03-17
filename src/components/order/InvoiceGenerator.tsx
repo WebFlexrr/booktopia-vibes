@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { renderToFile } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 import ReactPDFInvoice from './ReactPDFInvoice';
 
 interface OrderItem {
@@ -21,7 +21,7 @@ interface Order {
 
 const generateInvoice = async (order: Order) => {
   try {
-    const blob = await renderToFile(<ReactPDFInvoice order={order} />, {});
+    const blob = await pdf(<ReactPDFInvoice order={order} />).toBlob();
     return blob;
   } catch (error) {
     console.error('Error generating invoice:', error);
@@ -32,8 +32,9 @@ const generateInvoice = async (order: Order) => {
 export const downloadInvoice = async (order: Order) => {
   try {
     const blob = await generateInvoice(order);
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
+    link.href = url;
     link.download = `bookopia-invoice-${order.id}.pdf`;
     link.click();
   } catch (error) {
