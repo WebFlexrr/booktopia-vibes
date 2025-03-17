@@ -1,8 +1,7 @@
-
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingCart, User, Search, Heart } from 'lucide-react';
-import SearchBar from '../ui/SearchBar';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, ShoppingCart, User, Search, Heart } from "lucide-react";
+import SearchBar from "../ui/SearchBar";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,9 +17,9 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -41,7 +40,7 @@ const Navbar = () => {
         <nav
           className={`hidden md:flex items-center space-x-8 animate-fade-in`}
         >
-          <Link to="/category" className="link-hover">
+          <Link to="/shop" className="link-hover">
             Categories
           </Link>
           <Link to="/bestsellers" className="link-hover">

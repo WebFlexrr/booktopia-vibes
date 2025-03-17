@@ -12,8 +12,8 @@ import Footer from '../components/layout/Footer';
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "text@bookopedia.com",
+    password: "text@bookopedia.com",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +53,7 @@ const LoginPage = () => {
       });
       
       // Redirect to home page
-      navigate('/');
+      navigate('/account');
     } catch (error) {
       toast({
         title: "Login failed",

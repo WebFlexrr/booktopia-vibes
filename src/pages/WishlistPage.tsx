@@ -8,6 +8,7 @@ import { Input } from '../components/ui/input';
 import { ShoppingCart, Heart, Trash2, Share2 } from 'lucide-react';
 import { toast } from '../hooks/use-toast';
 import BookCard from '../components/ui/BookCard';
+import { books } from '@/db/books';
 
 // Mock data for wishlist items
 const mockWishlistItems = [
@@ -66,7 +67,7 @@ const mockWishlistItems = [
 ];
 
 const WishlistPage = () => {
-  const [wishlistItems, setWishlistItems] = useState(mockWishlistItems);
+  const [wishlistItems, setWishlistItems] = useState(books.splice(3,6));
   const [email, setEmail] = useState('');
   const [isSharing, setIsSharing] = useState(false);
 
@@ -78,7 +79,7 @@ const WishlistPage = () => {
     });
   };
 
-  const addToCart = (item: any) => {
+  const addToCart = (item: {title:string}) => {
     // In a real app, this would add the item to the cart
     toast({
       title: "Added to cart",
@@ -179,7 +180,7 @@ const WishlistPage = () => {
 
           {wishlistItems.length > 0 ? (
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {wishlistItems.map((item, index) => (
                   <div 
                     key={item.id} 
@@ -197,13 +198,13 @@ const WishlistPage = () => {
                       </Button>
                     </div>
                     <BookCard {...item} />
-                    <Button
+                    {/* <Button
                       className="w-full mt-2"
                       onClick={() => addToCart(item)}
                     >
                       <ShoppingCart size={16} className="mr-2" />
                       Add to Cart
-                    </Button>
+                    </Button> */}
                   </div>
                 ))}
               </div>

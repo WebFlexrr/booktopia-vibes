@@ -39,7 +39,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/book/:id" element={<ProductPage />} />
-          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/shop" element={<CategoryPage />} />
           {/* <Route path="/category/:id" element={<CategoryPage />} /> */}
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
@@ -48,7 +48,11 @@ const App = () => (
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/addresses" element={<AddressPage />} />
           <Route path="/account/orders" element={<OrdersPage />} />
-          <Route path="/account/orders/track/:orderId" element={<TrackOrderPage />} />
+          <Route
+            path="/account/orders/track/:orderId"
+            element={<TrackOrderPage />}
+          />
+          <Route path="/account/payment" element={<PaymentMethodsPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           {/* New routes for the author, publisher, bestseller, and new releases pages */}
           <Route path="/authors" element={<AuthorsPage />} />
@@ -57,8 +61,7 @@ const App = () => (
           <Route path="/publishers/:id" element={<PublishersPage />} />
           <Route path="/bestsellers" element={<BestSellersPage />} />
           <Route path="/new-releases" element={<NewReleasesPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/payment-methods" element={<PaymentMethodsPage />} />
+          <Route path="/account/settings" element={<SettingsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-conditions" element={<TermsConditionsPage />} />
           <Route path="/refund-policy" element={<RefundPolicyPage />} />

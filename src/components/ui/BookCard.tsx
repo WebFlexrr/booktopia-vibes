@@ -64,7 +64,10 @@ const BookCard: React.FC<BookCardProps> = ({
   };
 
   return (
-    <Link to={`/book/${id}`} className="book-card group animate-fade-in hover-scale block">
+    <Link
+      to={`/book/${id}`}
+      className="book-card group animate-fade-in hover-scale block"
+    >
       <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg">
         <img
           src={cover}
@@ -72,7 +75,7 @@ const BookCard: React.FC<BookCardProps> = ({
           className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-[1.03]"
           loading="lazy"
         />
-        
+
         {(isNew || isBestseller || discount > 0) && (
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             {isNew && (
@@ -94,22 +97,24 @@ const BookCard: React.FC<BookCardProps> = ({
         )}
 
         {/* Wishlist button */}
-        <button 
+        <button
           onClick={handleWishlist}
           className={`absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm
-                     transition-colors hover:bg-white ${isWishlisted ? 'text-red-500' : 'text-gray-500'}`}
+                     transition-colors hover:bg-white ${
+                       isWishlisted ? "text-red-500" : "text-gray-500"
+                     }`}
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
-          <Heart size={18} className={isWishlisted ? 'fill-red-500' : ''} />
+          <Heart size={18} className={isWishlisted ? "fill-red-500" : ""} />
         </button>
       </div>
-      
+
       <div className="p-4 flex flex-col flex-grow bg-card rounded-b-lg border border-t-0 border-border">
         <h3 className="font-medium line-clamp-2 mb-1 group-hover:text-primary transition-colors">
           {title}
         </h3>
         <p className="text-muted-foreground text-sm mb-2">{author}</p>
-        
+
         {rating > 0 && (
           <div className="flex items-center mb-2">
             {[...Array(5)].map((_, i) => (
@@ -117,22 +122,22 @@ const BookCard: React.FC<BookCardProps> = ({
                 key={i}
                 size={14}
                 className={`${
-                  i < Math.floor(rating) 
-                    ? 'text-amber-400 fill-amber-400' 
-                    : i < rating 
-                      ? 'text-amber-400 fill-amber-400 opacity-50' 
-                      : 'text-muted-foreground'
+                  i < Math.floor(rating)
+                    ? "text-amber-400 fill-amber-400"
+                    : i < rating
+                    ? "text-amber-400 fill-amber-400 opacity-50"
+                    : "text-muted-foreground"
                 } mr-1`}
               />
             ))}
-            <span className="text-xs text-muted-foreground ml-1">{rating.toFixed(1)}</span>
+            <span className="text-xs text-muted-foreground ml-1">
+              {rating.toFixed(1)}
+            </span>
           </div>
         )}
-        
+
         <div className="mt-auto flex items-baseline mb-3">
-          <span className="font-semibold">
-            ${price.toFixed(2)}
-          </span>
+          <span className="font-semibold">${price.toFixed(2)}</span>
           {originalPrice && (
             <span className="ml-2 text-sm text-muted-foreground line-through">
               ${originalPrice.toFixed(2)}
@@ -141,20 +146,16 @@ const BookCard: React.FC<BookCardProps> = ({
         </div>
 
         {/* Action buttons */}
-        <div className="flex gap-2 mt-auto">
-          <Button 
-            size="sm" 
-            variant="outline" 
-            className="flex-1 flex items-center justify-center"
+        <div className="flex flex-col gap-2 mt-auto">
+          <Button
+            size="sm"
+            variant="outline"
+            className="flex-1 py-1 flex items-center justify-center"
             onClick={handleAddToCart}
           >
             <ShoppingCart size={14} className="mr-1" /> Add
           </Button>
-          <Button 
-            size="sm"
-            className="flex-1"
-            onClick={handleBuyNow}
-          >
+          <Button size="sm" className="flex-1 py-1" onClick={handleBuyNow}>
             Buy Now
           </Button>
         </div>
