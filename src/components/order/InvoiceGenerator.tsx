@@ -1,27 +1,12 @@
 
 import React from 'react';
 import { pdf } from '@react-pdf/renderer';
-import ReactPDFInvoice from './ReactPDFInvoice';
-
-interface OrderItem {
-  id: string;
-  title: string;
-  author: string;
-  price: number;
-  quantity: number;
-}
-
-interface Order {
-  id: string;
-  date: string;
-  total: number;
-  status: string;
-  items: OrderItem[];
-}
+import InvoiceDocument from './invoice/InvoiceDocument';
+import { Order } from '@/types/order';
 
 const generateInvoice = async (order: Order) => {
   try {
-    const blob = await pdf(<ReactPDFInvoice order={order} />).toBlob();
+    const blob = await pdf(<InvoiceDocument order={order} />).toBlob();
     return blob;
   } catch (error) {
     console.error('Error generating invoice:', error);
