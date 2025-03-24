@@ -51,7 +51,8 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ setCurrentSlide, currentSli
   useEffect(() => {
     // Set up autoplay for carousel
     const interval = autoplay ? setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % bookLaunches.length);
+      const nextSlide = (currentSlide + 1) % bookLaunches.length;
+      setCurrentSlide(nextSlide);
       const nextBtn = document.querySelector('.carousel-next') as HTMLButtonElement;
       if (nextBtn) nextBtn.click();
     }, 5000) : null;
@@ -59,7 +60,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ setCurrentSlide, currentSli
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [autoplay, setCurrentSlide]);
+  }, [autoplay, setCurrentSlide, currentSlide]);
 
   return (
     <Carousel 
