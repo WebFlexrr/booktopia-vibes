@@ -148,14 +148,14 @@ const BookCard: React.FC<BookCardProps> = ({
         {/* Action buttons */}
         <div className="flex flex-col gap-2 mt-auto">
           <Button
-            size="sm"
+        
             variant="outline"
-            className="flex-1 py-1 flex items-center justify-center"
+            className=" flex items-center justify-center"
             onClick={handleAddToCart}
           >
             <ShoppingCart size={14} className="mr-1" /> Add
           </Button>
-          <Button size="sm" className="flex-1 py-1" onClick={handleBuyNow}>
+          <Button  className=" " onClick={handleBuyNow}>
             Buy Now
           </Button>
         </div>

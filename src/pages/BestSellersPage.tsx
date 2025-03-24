@@ -18,7 +18,7 @@ import { books } from '@/db/books';
 const BestSellersPage = () => {
   // Create categories from bestsellers data
   const categories = ['All', 'Fiction', 'Non-Fiction', 'Mystery', 'Classic'];
-  const bestsellers = books.filter(book=>book.isBestseller===true)
+  const bestsellers = books.filter(book=>book.isBestseller)
 
   return (
     <div className="min-h-screen flex flex-col">

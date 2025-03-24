@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProductPage from "./pages/ProductPage";
-import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import LoginPage from "./pages/LoginPage";
@@ -27,11 +26,13 @@ import WishlistPage from "./pages/WishlistPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsConditionsPage from "./pages/TermsConditionsPage";
 import RefundPolicyPage from "./pages/RefundPolicyPage";
+import ShopPage from "./pages/ShopPage";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+   
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -39,7 +40,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/book/:id" element={<ProductPage />} />
-          <Route path="/shop" element={<CategoryPage />} />
+          <Route path="/shop" element={<ShopPage />} />
           {/* <Route path="/category/:id" element={<CategoryPage />} /> */}
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
@@ -52,7 +53,7 @@ const App = () => (
             path="/account/orders/track/:orderId"
             element={<TrackOrderPage />}
           />
-            <Route path="/account/settings" element={<SettingsPage />} />
+          <Route path="/account/settings" element={<SettingsPage />} />
           <Route path="/account/payment" element={<PaymentMethodsPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           {/* New routes for the author, publisher, bestseller, and new releases pages */}

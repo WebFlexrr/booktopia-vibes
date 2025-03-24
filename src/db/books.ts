@@ -56,6 +56,7 @@ Somewhere out beyond the edge of the universe there is a library that contains a
     rating: 4.6,
     reviewCount: 1854,
     isInStock: true,
+    isBestseller: true,
     description:
       "An easy & proven way to build good habits & break bad ones. Tiny Changes, Remarkable Results. No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
     categories: ["Self-Help", "Productivity", "Business"],
@@ -109,6 +110,7 @@ Somewhere out beyond the edge of the universe there is a library that contains a
     format: "Hardcover",
     dimensions: "6.14 x 1.57 x 9.25 inches",
     weight: "1.4 pounds",
+
     ageRange: "Adult",
     reviews: [
       {
@@ -182,6 +184,7 @@ Somewhere out beyond the edge of the universe there is a library that contains a
     rating: 4.6,
     reviewCount: 8765,
     isInStock: true,
+    isBestseller: true,
     description:
       "A tale of gods, kings, and warriors, The Song of Achilles focuses on the relationship between Achilles and Patroclus, two young princes of the House of Aeacus. Their bond deepens as they train for war, but their fates are forever altered by the prophecy surrounding the Trojan War.",
     categories: ["Non Fiction", "Fantasy"],
@@ -224,6 +227,7 @@ Somewhere out beyond the edge of the universe there is a library that contains a
     rating: 4.9,
     reviewCount: 10452,
     isInStock: true,
+    isBestseller: true,
     description:
       "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it, To Kill A Mockingbird has endured as a classic of modern American literature.",
     categories: ["Classics", "Fiction", "Southern Gothic"],
@@ -391,6 +395,7 @@ Somewhere out beyond the edge of the universe there is a library that contains a
     rating: 4.6,
     reviewCount: 9876,
     isInStock: true,
+    isBestseller: true,
     description:
       "The Alchemist is a novel by Brazilian author Paulo Coelho that was first published in 1988. Originally written in Portuguese, it became a widely translated international bestseller. It has been translated into over 80 languages and has sold over 150 million copies worldwide.",
     categories: ["Fiction", "Philosophy", "Inspirational"],
@@ -514,6 +519,7 @@ Somewhere out beyond the edge of the universe there is a library that contains a
     rating: 4.4,
     reviewCount: 5643,
     isInStock: true,
+    isBestseller: true,
     description:
       "Educated is a 2018 memoir by American author Tara Westover. The book is about Westover's life growing up in a survivalist Mormon family in rural Idaho, her lack of formal education, and her eventual pursuit of one.",
     categories: ["Memoir", "Biography", "Autobiography"],

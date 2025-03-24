@@ -32,24 +32,26 @@ const TrendingBooks = () => {
   return (
     <section className="py-20 bg-secondary/30">
       <div className="container-custom">
-        <h2 className="section-heading text-center mb-12">Trending This Week</h2>
-        
+        <h2 className="section-heading  text-center mb-12">
+          Trending This Week
+        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {trendingBooks.map((book, index) => (
             <Link to={`/book/${book.id}`} key={book.id}>
-              <div 
+              <div
                 className="relative overflow-hidden rounded-2xl shadow-lg hover-scale h-[500px] group"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="absolute inset-0">
-                  <img 
-                    src={book.cover} 
-                    alt={book.title} 
+                  <img
+                    src={book.cover}
+                    alt={book.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 </div>
-                
+
                 <div className="absolute bottom-0 left-0 p-6 text-white w-full">
                   <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-white/20 backdrop-blur-sm mb-3">
                     {book.category}

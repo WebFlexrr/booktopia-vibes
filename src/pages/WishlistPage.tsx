@@ -67,7 +67,7 @@ const mockWishlistItems = [
 ];
 
 const WishlistPage = () => {
-  const [wishlistItems, setWishlistItems] = useState(books.splice(3,6));
+  const [wishlistItems, setWishlistItems] = useState(books.splice(2,6));
   const [email, setEmail] = useState('');
   const [isSharing, setIsSharing] = useState(false);
 
@@ -121,8 +121,11 @@ const WishlistPage = () => {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 animate-slide-up">
             <div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                <Link to="/" className="hover:text-foreground transition-colors">
-                  Home
+                <Link
+                  to="/account"
+                  className="hover:text-foreground transition-colors"
+                >
+                  My Account
                 </Link>
                 <span>/</span>
                 <span className="text-foreground">My Wishlist</span>
@@ -133,16 +136,16 @@ const WishlistPage = () => {
               </h1>
             </div>
             <div className="mt-4 md:mt-0 flex flex-wrap gap-2">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => setIsSharing(!isSharing)}
                 className="flex items-center gap-2"
               >
                 <Share2 size={16} />
                 Share Wishlist
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={clearWishlist}
                 className="flex items-center gap-2"
                 disabled={wishlistItems.length === 0}
@@ -150,7 +153,7 @@ const WishlistPage = () => {
                 <Trash2 size={16} />
                 Clear All
               </Button>
-              <Button 
+              <Button
                 onClick={addAllToCart}
                 className="flex items-center gap-2"
                 disabled={wishlistItems.length === 0}
@@ -182,8 +185,8 @@ const WishlistPage = () => {
             <div>
               <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {wishlistItems.map((item, index) => (
-                  <div 
-                    key={item.id} 
+                  <div
+                    key={item.id}
                     className="relative group animate-fade-in"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
@@ -211,7 +214,9 @@ const WishlistPage = () => {
 
               <div className="mt-8 flex justify-center">
                 <div className="bg-muted/30 p-6 rounded-lg text-center max-w-md mx-auto">
-                  <h3 className="text-lg font-medium mb-2">Add more books to your wishlist</h3>
+                  <h3 className="text-lg font-medium mb-2">
+                    Add more books to your wishlist
+                  </h3>
                   <p className="text-muted-foreground mb-4">
                     Keep browsing our collection to find more books you'll love.
                   </p>
@@ -226,9 +231,12 @@ const WishlistPage = () => {
               <div className="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 mb-4">
                 <Heart size={24} className="text-red-500" />
               </div>
-              <h3 className="text-lg font-medium mb-2">Your wishlist is empty</h3>
+              <h3 className="text-lg font-medium mb-2">
+                Your wishlist is empty
+              </h3>
               <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Add items to your wishlist by clicking the heart icon on book pages. Your wishlist items will be saved for your next visit.
+                Add items to your wishlist by clicking the heart icon on book
+                pages. Your wishlist items will be saved for your next visit.
               </p>
               <Button asChild>
                 <Link to="/">Start Browsing</Link>

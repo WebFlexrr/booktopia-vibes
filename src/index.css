@@ -121,7 +121,7 @@
   }
   
   .section-heading {
-    @apply text-2xl sm:text-3xl font-semibold mb-8 tracking-tight;
+    @apply text-3xl md:text-5xl font-semibold md:font-bold mb-10 tracking-tight;
   }
   
   .subtle-divider {

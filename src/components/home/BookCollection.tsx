@@ -30,8 +30,8 @@ const BookCollection: React.FC<BookCollectionProps> = ({ title, books, link }) =
   return (
     <section className="py-16">
       <div className="container-custom">
-        <div className="flex items-end justify-between mb-10">
-          <h2 className="section-heading">{title}</h2>
+        <div className="flex items-center justify-between mb-10">
+          <h2 className="section-heading mb-0 ">{title}</h2>
           
           {link && (
             <Link 

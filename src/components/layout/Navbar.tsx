@@ -26,15 +26,15 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "glass py-3" : "bg-transparent py-5"
+        isScrolled ? "glass py-3" : "bg-transparent py-3"
       }`}
     >
       <div className="container-custom flex items-center justify-between">
         <Link
           to="/"
-          className="text-2xl font-semibold tracking-tight animate-fade-in"
+          className="text-2xl flex items-center justify-center gap-1.5 font-semibold tracking-tight animate-fade-in"
         >
-          bookopia
+          <img src={"/logo/logo.png"} width={30} height={30} alt="Logo"/> Booktopia
         </Link>
 
         <nav

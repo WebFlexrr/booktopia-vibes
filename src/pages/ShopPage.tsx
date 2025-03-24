@@ -51,7 +51,7 @@ const sortOptions = [
   { id: "ratingHigh", label: "Customer Rating" },
 ];
 
-const CategoryPage = () => {
+const ShopPage = () => {
   const { id } = useParams<{ id: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -81,11 +81,11 @@ const CategoryPage = () => {
   //   ? books.filter((book) => book.categories.includes(category))
   //   : books;
   const filteredBooks =
-    selectedCategory === "All"
+    category === "All"
       ? books
       : books.filter((book) => book.categories.includes(selectedCategory));
 
-  console.log("current-->", selectedCategory);
+  console.log("current-->", category);
 
   // Toggle price filter
   const togglePriceFilter = (filterId: string) => {
@@ -347,4 +347,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default ShopPage;
