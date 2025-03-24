@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				sans: ['SF Pro Display', 'system-ui', 'sans-serif'],
 				serif: ['New York', 'Georgia', 'serif'],
+				book: ['Literata', 'Georgia', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

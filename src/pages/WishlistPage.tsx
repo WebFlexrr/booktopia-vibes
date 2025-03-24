@@ -134,15 +134,21 @@ const WishlistPage = () => {
                     className="relative group animate-fade-in"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      className="absolute -top-2 -right-2 h-8 w-8 rounded-full z-20 shadow-md opacity-90 hover:opacity-100"
-                      onClick={() => removeFromWishlist(item.id)}
-                    >
-                      <Trash2 size={14} />
-                    </Button>
-                    <BookCard {...item} />
+                    <div className="relative">
+                      <BookCard {...item} />
+                      <Button
+                        variant="destructive"
+                        size="icon"
+                        className="absolute -top-2 -right-2 h-7 w-7 rounded-full z-10 shadow-md opacity-80 hover:opacity-100"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          removeFromWishlist(item.id);
+                        }}
+                      >
+                        <Trash2 size={12} />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
