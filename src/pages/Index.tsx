@@ -16,7 +16,7 @@ const Index = () => {
 
         <BookCollection
           title="New Releases"
-          books={books}
+          books={books.splice(0, 8)}
           link={{ text: "View all new releases", url: "/new-releases" }}
         />
 
@@ -26,13 +26,13 @@ const Index = () => {
 
         <BookCollection
           title="Bestsellers"
-          books={books}
+          books={books.splice(0, 4)}
           link={{ text: "View all bestsellers", url: "/bestsellers" }}
         />
 
         <BookCollection
           title="Special Deals"
-          books={books}
+          books={books.splice(6, 10)}
           link={{ text: "View all deals", url: "/deals" }}
         />
       </main>

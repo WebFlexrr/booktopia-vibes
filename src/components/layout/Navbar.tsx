@@ -41,7 +41,7 @@ const Navbar = () => {
           className={`hidden md:flex items-center space-x-8 animate-fade-in`}
         >
           <Link to="/shop" className="link-hover">
-            Categories
+            Shop
           </Link>
           <Link to="/bestsellers" className="link-hover">
             Bestsellers

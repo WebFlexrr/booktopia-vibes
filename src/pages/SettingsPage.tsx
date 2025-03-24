@@ -175,7 +175,7 @@ const SettingsPage = () => {
                     <span>Notifications</span>
                   </button>
                   
-                  <button 
+                  {/* <button 
                     className={`w-full text-left p-3 rounded-lg flex items-center gap-3 transition-colors ${
                       activeTab === 'payments' ? 'bg-primary/10 text-primary' : 'hover:bg-muted'
                     }`}
@@ -184,7 +184,7 @@ const SettingsPage = () => {
                     <CreditCard className="h-5 w-5" />
                     <span>Payment Methods</span>
                   </button>
-                  
+                   */}
                   <button 
                     className={`w-full text-left p-3 rounded-lg flex items-center gap-3 transition-colors ${
                       activeTab === 'privacy' ? 'bg-primary/10 text-primary' : 'hover:bg-muted'

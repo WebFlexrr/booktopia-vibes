@@ -68,10 +68,30 @@ const steps: CheckoutStep[] = [
 
 // UPI apps
 const upiApps = [
-  { id: 'gpay', name: 'Google Pay', icon: '/lovable-uploads/a669888e-37c0-4b40-86af-db84f8a9fedc.png', color: 'bg-blue-50' },
-  { id: 'phonepe', name: 'PhonePe', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/PhonePe_Logo.png/800px-PhonePe_Logo.png', color: 'bg-purple-50' },
-  { id: 'paytm', name: 'Paytm', icon: 'https://cdn.iconscout.com/icon/free/png-256/free-paytm-226448.png', color: 'bg-blue-50' },
-  { id: 'bhim', name: 'BHIM UPI', icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/BHIM_logo.svg/2048px-BHIM_logo.svg.png', color: 'bg-blue-50' },
+  {
+    id: "gpay",
+    name: "Google Pay",
+    icon: "/google-pay.png ",
+    color: "bg-blue-50",
+  },
+  {
+    id: "phonepe",
+    name: "PhonePe",
+    icon: "/phone-pe.png ",
+    color: "bg-purple-50",
+  },
+  {
+    id: "paytm",
+    name: "Paytm",
+    icon: "/paytm.png",
+    color: "bg-blue-50",
+  },
+  {
+    id: "bhim",
+    name: "BHIM UPI",
+    icon: "/bhim.png",
+    color: "bg-blue-50",
+  },
 ];
 
 const CheckoutPage = () => {

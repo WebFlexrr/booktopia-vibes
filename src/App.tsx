@@ -52,6 +52,7 @@ const App = () => (
             path="/account/orders/track/:orderId"
             element={<TrackOrderPage />}
           />
+            <Route path="/account/settings" element={<SettingsPage />} />
           <Route path="/account/payment" element={<PaymentMethodsPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           {/* New routes for the author, publisher, bestseller, and new releases pages */}
@@ -61,7 +62,6 @@ const App = () => (
           <Route path="/publishers/:id" element={<PublishersPage />} />
           <Route path="/bestsellers" element={<BestSellersPage />} />
           <Route path="/new-releases" element={<NewReleasesPage />} />
-          <Route path="/account/settings" element={<SettingsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-conditions" element={<TermsConditionsPage />} />
           <Route path="/refund-policy" element={<RefundPolicyPage />} />

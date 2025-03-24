@@ -85,7 +85,7 @@ const LoginPage = () => {
       <Navbar />
       <main className="flex-grow pt-24 flex items-center justify-center px-4">
         <div className="w-full max-w-md animate-slide-up">
-          <div className="bg-card rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-card rounded-xl my-14 mb-40 md:my-40 shadow-sm overflow-hidden">
             <div className="p-8">
               <div className="text-center mb-8">
                 <h1 className="text-2xl font-semibold">Welcome back</h1>
