@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import BookCard from "../components/ui/BookCard";
@@ -54,16 +54,15 @@ const sortOptions = [
 const ShopPage = () => {
   const { id } = useParams<{ id: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  // Get a specific query parameter
-  const category = searchParams.get("category");
+  // Get query parameters
+  const categoryParam = searchParams.get("category") || "All";
   const filter = searchParams.get("filter");
 
   // States
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(
-    id || categories[0].id
-  );
+  const [selectedCategory, setSelectedCategory] = useState(categoryParam);
   const [showFilters, setShowFilters] = useState(false);
   const [activeFilters, setActiveFilters] = useState({
     price: [] as string[],
@@ -71,46 +70,91 @@ const ShopPage = () => {
   });
   const [sortBy, setSortBy] = useState(sortOptions[0].id);
 
+  // Update URL when category changes
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    
+    if (selectedCategory !== "All") {
+      params.set("category", selectedCategory);
+    } else {
+      params.delete("category");
+    }
+    
+    setSearchParams(params);
+  }, [selectedCategory, setSearchParams]);
+
   // Get the current category name
   const currentCategory =
     categories.find((cat) => cat.id === selectedCategory)?.name ||
     "All Categories";
 
-  // Filter books (in a real app, this would be handled by the backend)
-  // const filteredBooks = category
-  //   ? books.filter((book) => book.categories.includes(category))
-  //   : books;
-  const filteredBooks =
-    category === "All"
-      ? books
-      : books.filter((book) => book.categories.includes(selectedCategory));
-
-  console.log("current-->", category);
+  // Filter books based on selected category
+  const filteredBooks = selectedCategory === "All" 
+    ? books 
+    : books.filter(book => book.categories.includes(selectedCategory));
 
   // Toggle price filter
   const togglePriceFilter = (filterId: string) => {
-    setActiveFilters((prev) => ({
-      ...prev,
-      price: prev.price.includes(filterId)
+    setActiveFilters((prev) => {
+      const updatedPrices = prev.price.includes(filterId)
         ? prev.price.filter((id) => id !== filterId)
-        : [...prev.price, filterId],
-    }));
+        : [...prev.price, filterId];
+        
+      // Update URL with filters
+      const params = new URLSearchParams(searchParams);
+      if (updatedPrices.length > 0) {
+        params.set("price", updatedPrices.join(","));
+      } else {
+        params.delete("price");
+      }
+      setSearchParams(params);
+      
+      return {
+        ...prev,
+        price: updatedPrices,
+      };
+    });
   };
 
   // Toggle rating filter
   const toggleRatingFilter = (filterId: string) => {
-    setActiveFilters((prev) => ({
-      ...prev,
-      rating: prev.rating.includes(filterId)
+    setActiveFilters((prev) => {
+      const updatedRatings = prev.rating.includes(filterId)
         ? prev.rating.filter((id) => id !== filterId)
-        : [...prev.rating, filterId],
-    }));
+        : [...prev.rating, filterId];
+        
+      // Update URL with filters
+      const params = new URLSearchParams(searchParams);
+      if (updatedRatings.length > 0) {
+        params.set("rating", updatedRatings.join(","));
+      } else {
+        params.delete("rating");
+      }
+      setSearchParams(params);
+      
+      return {
+        ...prev,
+        rating: updatedRatings,
+      };
+    });
   };
 
   // Clear all filters
   const clearFilters = () => {
     setActiveFilters({ price: [], rating: [] });
     setSearchQuery("");
+    
+    // Clear filter params but keep category
+    const params = new URLSearchParams();
+    if (selectedCategory !== "All") {
+      params.set("category", selectedCategory);
+    }
+    setSearchParams(params);
+  };
+
+  // Handle category selection
+  const handleCategorySelect = (categoryId: string) => {
+    setSelectedCategory(categoryId);
   };
 
   return (
@@ -130,10 +174,9 @@ const ShopPage = () => {
                   <h2 className="font-semibold text-lg mb-4">Categories</h2>
                   <ul className="space-y-2">
                     {categories.map((category) => (
-                      // <Link to={`/category?category=${category.id}`}>
                       <li key={category.id}>
                         <button
-                          onClick={() => setSelectedCategory(category.id)}
+                          onClick={() => handleCategorySelect(category.id)}
                           className={`w-full text-left py-2 px-3 rounded-lg transition-colors ${
                             selectedCategory === category.id
                               ? "bg-primary text-primary-foreground"
@@ -143,7 +186,6 @@ const ShopPage = () => {
                           {category.name}
                         </button>
                       </li>
-                      // </Link>
                     ))}
                   </ul>
                 </div>

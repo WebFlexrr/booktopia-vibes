@@ -27,6 +27,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsConditionsPage from "./pages/TermsConditionsPage";
 import RefundPolicyPage from "./pages/RefundPolicyPage";
 import ShopPage from "./pages/ShopPage";
+import DealsPage from "./pages/DealsPage";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ const App = () => (
           <Route path="/publishers/:id" element={<PublishersPage />} />
           <Route path="/bestsellers" element={<BestSellersPage />} />
           <Route path="/new-releases" element={<NewReleasesPage />} />
+          <Route path="/deals" element={<DealsPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms-conditions" element={<TermsConditionsPage />} />
           <Route path="/refund-policy" element={<RefundPolicyPage />} />

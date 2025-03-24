@@ -10,62 +10,6 @@ import { toast } from '../hooks/use-toast';
 import BookCard from '../components/ui/BookCard';
 import { books } from '@/db/books';
 
-// Mock data for wishlist items
-const mockWishlistItems = [
-  {
-    id: '1',
-    title: 'The Silent Patient',
-    author: 'Alex Michaelides',
-    cover: '/placeholder.svg',
-    price: 12.99,
-    originalPrice: 16.99,
-    rating: 4.5,
-    isNew: false,
-    isBestseller: true,
-  },
-  {
-    id: '2',
-    title: 'The Thursday Murder Club',
-    author: 'Richard Osman',
-    cover: '/placeholder.svg',
-    price: 14.99,
-    rating: 4.3,
-    isNew: true,
-    isBestseller: false,
-  },
-  {
-    id: '3',
-    title: 'Where the Crawdads Sing',
-    author: 'Delia Owens',
-    cover: '/placeholder.svg',
-    price: 11.99,
-    originalPrice: 15.99,
-    rating: 4.7,
-    isNew: false,
-    isBestseller: true,
-  },
-  {
-    id: '4',
-    title: 'The Midnight Library',
-    author: 'Matt Haig',
-    cover: '/placeholder.svg',
-    price: 13.99,
-    rating: 4.2,
-    isNew: false,
-    isBestseller: false,
-  },
-  {
-    id: '5',
-    title: 'Project Hail Mary',
-    author: 'Andy Weir',
-    cover: '/placeholder.svg',
-    price: 15.99,
-    rating: 4.8,
-    isNew: true,
-    isBestseller: true,
-  },
-];
-
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState(books.splice(2,6));
   const [email, setEmail] = useState('');
@@ -190,24 +134,15 @@ const WishlistPage = () => {
                     className="relative group animate-fade-in"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button
-                        variant="destructive"
-                        size="icon"
-                        className="h-8 w-8 rounded-full"
-                        onClick={() => removeFromWishlist(item.id)}
-                      >
-                        <Trash2 size={14} />
-                      </Button>
-                    </div>
-                    <BookCard {...item} />
-                    {/* <Button
-                      className="w-full mt-2"
-                      onClick={() => addToCart(item)}
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      className="absolute -top-2 -right-2 h-8 w-8 rounded-full z-20 shadow-md opacity-90 hover:opacity-100"
+                      onClick={() => removeFromWishlist(item.id)}
                     >
-                      <ShoppingCart size={16} className="mr-2" />
-                      Add to Cart
-                    </Button> */}
+                      <Trash2 size={14} />
+                    </Button>
+                    <BookCard {...item} />
                   </div>
                 ))}
               </div>

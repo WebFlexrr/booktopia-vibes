@@ -68,7 +68,7 @@ const BookCard: React.FC<BookCardProps> = ({
       to={`/book/${id}`}
       className="book-card group animate-fade-in hover-scale block"
     >
-      <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-t-lg h-[200px] sm:h-[220px]">
         <img
           src={cover}
           alt={`Cover of ${title} by ${author}`}
@@ -110,24 +110,24 @@ const BookCard: React.FC<BookCardProps> = ({
       </div>
 
       <div className="p-4 flex flex-col flex-grow bg-card rounded-b-lg border border-t-0 border-border">
-        <h3 className="font-medium line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+        <h3 className="font-medium line-clamp-2 mb-1 group-hover:text-primary transition-colors text-sm">
           {title}
         </h3>
-        <p className="text-muted-foreground text-sm mb-2">{author}</p>
+        <p className="text-muted-foreground text-xs mb-2">{author}</p>
 
         {rating > 0 && (
           <div className="flex items-center mb-2">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                size={14}
+                size={12}
                 className={`${
                   i < Math.floor(rating)
                     ? "text-amber-400 fill-amber-400"
                     : i < rating
                     ? "text-amber-400 fill-amber-400 opacity-50"
                     : "text-muted-foreground"
-                } mr-1`}
+                } mr-0.5`}
               />
             ))}
             <span className="text-xs text-muted-foreground ml-1">
@@ -139,7 +139,7 @@ const BookCard: React.FC<BookCardProps> = ({
         <div className="mt-auto flex items-baseline mb-3">
           <span className="font-semibold">${price.toFixed(2)}</span>
           {originalPrice && (
-            <span className="ml-2 text-sm text-muted-foreground line-through">
+            <span className="ml-2 text-xs text-muted-foreground line-through">
               ${originalPrice.toFixed(2)}
             </span>
           )}
@@ -148,14 +148,13 @@ const BookCard: React.FC<BookCardProps> = ({
         {/* Action buttons */}
         <div className="flex flex-col gap-2 mt-auto">
           <Button
-        
             variant="outline"
-            className=" flex items-center justify-center"
+            className="flex items-center justify-center py-1 h-8 text-xs"
             onClick={handleAddToCart}
           >
-            <ShoppingCart size={14} className="mr-1" /> Add
+            <ShoppingCart size={12} className="mr-1" /> Add
           </Button>
-          <Button  className=" " onClick={handleBuyNow}>
+          <Button className="py-1 h-8 text-xs" onClick={handleBuyNow}>
             Buy Now
           </Button>
         </div>
