@@ -68,7 +68,7 @@ const BookCard: React.FC<BookCardProps> = ({
       to={`/book/${id}`}
       className="book-card group animate-fade-in hover-scale block"
     >
-      <div className="relative aspect-[2/3] overflow-hidden rounded-t-lg h-[180px] sm:h-[200px]">
+      <div className="relative  overflow-hidden rounded-t-lg h-[180px] sm:h-[200px]">
         <img
           src={cover}
           alt={`Cover of ${title} by ${author}`}
@@ -110,7 +110,7 @@ const BookCard: React.FC<BookCardProps> = ({
       </div>
 
       <div className="p-3 flex flex-col flex-grow bg-card rounded-b-lg border border-t-0 border-border">
-        <h3 className="font-medium line-clamp-2 mb-1 group-hover:text-primary transition-colors text-sm">
+        <h3 className="font-medium line-clamp-2 mb-1 group-hover:text-primary transition-colors ">
           {title}
         </h3>
         <p className="text-muted-foreground text-xs mb-1.5 font-serif italic">{author}</p>
@@ -149,12 +149,12 @@ const BookCard: React.FC<BookCardProps> = ({
         <div className="flex flex-col gap-1.5 mt-auto">
           <Button
             variant="outline"
-            className="flex items-center justify-center py-0 h-7 text-[10px]"
+            className="flex items-center justify-center py-0 h-8 "
             onClick={handleAddToCart}
           >
             <ShoppingCart size={10} className="mr-1" /> Add to Cart
           </Button>
-          <Button className="py-0 h-7 text-[10px]" onClick={handleBuyNow}>
+          <Button className="py-0 h-8 " onClick={handleBuyNow}>
             Buy Now
           </Button>
         </div>

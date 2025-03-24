@@ -41,7 +41,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ book }) => {
       <div className="absolute inset-0 overflow-hidden">
         {book.id === '1' && book.decoration && (
           <>
-            <motion.img 
+            {/* <motion.img 
               src={book.decoration}
               alt="Decoration" 
               className="absolute top-20 left-10 w-20 h-20"
@@ -53,7 +53,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ book }) => {
                 repeat: Infinity,
                 repeatType: "reverse"
               }}
-            />
+            /> */}
             <motion.div 
               className="absolute top-1/4 right-20 w-16 h-16"
               animate={{ 
@@ -120,7 +120,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ book }) => {
       <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-8 py-12 relative z-10">
         {/* Text content */}
         <div className="flex flex-col justify-center order-2 lg:order-1">
-          <motion.span 
+          {/* <motion.span 
             className="inline-block text-sm font-medium px-3 py-1 rounded-full bg-secondary text-secondary-foreground mb-6"
             initial="hidden"
             animate="visible"
@@ -128,7 +128,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ book }) => {
             variants={fadeInAnimationVariants}
           >
             BEST BOOKSHELF IN TOWN
-          </motion.span>
+          </motion.span> */}
           
           <motion.h1 
             className="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4"
